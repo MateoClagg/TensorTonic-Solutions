@@ -8,4 +8,4 @@ def calculate_eigenvalues(matrix: list) -> np.ndarray:
 
     eig_vals = np.linalg.eigvals(M)
 
-    return np.sort(eig_vals)
+    return np.sort(eig_vals.real)
