@@ -1,0 +1,21 @@
+import numpy as np
+
+def bootstrap_mean(x: list, n_bootstrap: int = 1000, ci: float = 0.95, seed: int = 0) -> dict:
+    """
+    Returns a dictionary with bootstrap_mean, lower, and upper.
+    """
+    x = np.asarray(x, dtype=float)
+    rng = np.random.default_rng(seed)
+
+    indices = rng.integers(0, x.size, size=(n_bootstrap, x.size))
+
+    B = x[indices]
+    means = np.mean(B, axis=1)
+    alpha = (1 - ci) / 2
+
+    return {
+        "bootstrap_mean": float(np.mean(means)),
+        "lower": float(np.quantile(means, alpha)),
+        "upper": float(np.quantile(means, 1 - alpha))
+    }
+    
